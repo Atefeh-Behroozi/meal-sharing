@@ -7,7 +7,7 @@ const mealsRouter = require("./api/meals");
 const buildPath = path.join(__dirname, "../../dist");
 const port = process.env.PORT || 3000;
 const cors = require("cors");
-const knex = require("./database");
+ const knex = require("./database");
 // For week4 no need to look into this!
 // Serve the built client html
 app.use(express.static(buildPath));
@@ -21,59 +21,59 @@ app.use(cors());
 
 router.use("/meals", mealsRouter);
 
-app.get('/future-meals', async (req, res) => {
-  try {
-    const meal = await knex.raw("SELECT * FROM meal WHERE `when` > now()");
-    res.status(200).json(meal[0]);
-  } catch (error) {
-    res.status(500).json({ error: 'An error occurred.'});
-  }
-});
-
-app.get('/past-meals', async (req, res) => {
-  try {
-    const meal = await knex.raw("SELECT * FROM meal WHERE `when` < now()");
-    res.status(200).json(meal[0]);
-  } catch (error) {
-    res.status(500).json({ error: 'An error occurred.'});
-  }
-});
-
-app.get('/all-meals', async (req, res) => {
-  try {
-    const meal = await knex.raw("SELECT * FROM meal ORDER BY id");
-    res.json(200).json(meal[0]);
-  } catch (error) {
-   res.status(404).json(error);
-  }
-});
-
-app.get('/first-meal', async (req, res) => {
-  try {
-    const meal = await knex.raw("SELECT * FROM meal ORDER BY id LIMIT 1");
-    if (meal.length > 0) {
-      res.status(200).json(meal[0]);
-    } else {
-      res.status(404).json("There are no meals.");
+ app.get('/future-meals', async (req, res) => {
+   try {
+     const meals = await knex.raw("SELECT * FROM meal WHERE `when` > now()");
+     res.status(200).json(meals[0]);
+   } catch (error) {
+     res.status(500).json({ error: 'An error occurred.'});
+   }
+ });
+ 
+ app.get('/past-meals', async (req, res) => {
+   try {
+     const meals = await knex.raw("SELECT * FROM meal WHERE `when` < now()");
+     res.status(200).json(meals[0]);
+   } catch (error) {
+     res.status(500).json({ error: 'An error occurred.'});
+   }
+ });
+ 
+ app.get('/all-meals', async (req, res) => {
+   try {
+     const meals = await knex.raw("SELECT * FROM meal ORDER BY id");
+     res.json(200).json(meals[0]);
+   } catch (error) {
+    res.status(404).json(error);
+   }
+ });
+ 
+ app.get('/first-meal', async (req, res) => {
+   try {
+     const meals = await knex.raw("SELECT * FROM meal ORDER BY id ASC LIMIT 1");
+     if (meals.length > 0) {
+       res.status(200).json(meals[0]);
+     } else {
+       res.status(404).json("There are no meals.");
+     }
+   } catch (error) {
+     res.status(500).json({ error: 'An error occurred.'});
+   }
+ });
+ 
+ app.get('/last-meal', async (req, res) => {
+   try {
+     const meals = await knex.raw("SELECT * FROM meal ORDER BY id DESC LIMIT 1");
+     if (meals.length > 0) {
+       res.status(200).json(meals[0]);
+     } else {
+       res.status(404).json("There are no meals.");
+     }
+   } catch (error) {
+     res.status(500).json({ error: 'An error occurred.'});
     }
-  } catch (error) {
-    res.status(500).json({ error: 'An error occurred.'});
-  }
-});
-
-app.get('/last-meal', async (req, res) => {
-  try {
-    const meal = await knex.raw("SELECT * FROM meal ORDER BY id DESC LIMIT 1");
-    if (meal.length > 0) {
-      res.status(200).json(meal[0]);
-    } else {
-      res.status(404).json("There are no meals.");
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'An error occurred.'});
-  }
-});
-module.exports = router;
+ });
+ module.exports = router;
 
 if (process.env.API_PATH) {
   app.use(process.env.API_PATH, router);
