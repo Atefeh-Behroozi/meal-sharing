@@ -23,8 +23,8 @@ router.use("/meals", mealsRouter);
 
  app.get('/future-meals', async (req, res) => {
    try {
-     const meal = await knex.raw("SELECT * FROM meal WHERE `when` > now()");
-     res.status(200).json(meal[0]);
+     const meals = await knex.raw("SELECT * FROM meal WHERE `when` > now()");
+     res.status(200).json(meals[0]);
    } catch (error) {
      res.status(500).json({ error: 'An error occurred.'});
    }
@@ -32,8 +32,8 @@ router.use("/meals", mealsRouter);
  
  app.get('/past-meals', async (req, res) => {
    try {
-     const meal = await knex.raw("SELECT * FROM meal WHERE `when` < now()");
-     res.status(200).json(meal[0]);
+     const meals = await knex.raw("SELECT * FROM meal WHERE `when` < now()");
+     res.status(200).json(meals[0]);
    } catch (error) {
      res.status(500).json({ error: 'An error occurred.'});
    }
@@ -41,8 +41,8 @@ router.use("/meals", mealsRouter);
  
  app.get('/all-meals', async (req, res) => {
    try {
-     const meal = await knex.raw("SELECT * FROM meal ORDER BY id");
-     res.json(200).json(meal[0]);
+     const meals = await knex.raw("SELECT * FROM meal ORDER BY id");
+     res.json(200).json(meals[0]);
    } catch (error) {
     res.status(404).json(error);
    }
@@ -50,9 +50,9 @@ router.use("/meals", mealsRouter);
  
  app.get('/first-meal', async (req, res) => {
    try {
-     const meal = await knex.raw("SELECT * FROM meal ORDER BY id LIMIT 1");
-     if (meal.length > 0) {
-       res.status(200).json(meal[0]);
+     const meals = await knex.raw("SELECT * FROM meal ORDER BY id ASC LIMIT 1");
+     if (meals.length > 0) {
+       res.status(200).json(meals[0]);
      } else {
        res.status(404).json("There are no meals.");
      }
@@ -63,9 +63,9 @@ router.use("/meals", mealsRouter);
  
  app.get('/last-meal', async (req, res) => {
    try {
-     const meal = await knex.raw("SELECT * FROM meal ORDER BY id DESC LIMIT 1");
-     if (meal.length > 0) {
-       res.status(200).json(meal[0]);
+     const meals = await knex.raw("SELECT * FROM meal ORDER BY id DESC LIMIT 1");
+     if (meals.length > 0) {
+       res.status(200).json(meals[0]);
      } else {
        res.status(404).json("There are no meals.");
      }
