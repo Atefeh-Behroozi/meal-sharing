@@ -1,13 +1,16 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const knex = require("../database");
-
-router.get("/", async (request, response) => {
-  router.get('/', async (req, res) => { 
+const knex = require('../database');
+const validateRequestBody = (req, res, next) => {
+  const { title } = req.body;
+  if(!title) {
+    return res.status(400).json({ error: 'Title is required'})
+  }
+  next();
+};
+router.get('/', async (req, res) => { 
   try {
-    // knex syntax for selecting things. Look up the documentation for knex for further info
-    const titles = await knex("meals").select("title");
-    response.json(titles);
+
     const meals = await knex('meals').select('*');
     res.json(meals);
   } catch (error) {
@@ -16,7 +19,7 @@ router.get("/", async (request, response) => {
 });
 
 // POST a new meal
-router.post('/', async (req, res) => {
+router.post('/', validateRequestBody, async (req, res) => {
   try {
     const meal = await knex('meals').insert(req.body);
     res.status(201).json(meal);
@@ -40,7 +43,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // PUT update a meal by id
-router.put('/:id', async (req, res) => {
+router.put('/:id', validateRequestBody, async (req, res) => {
   try {
     const meal = await knex('meals').where({ id: req.params.id }).update(req.body);
     if (meal) {
@@ -63,9 +66,9 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({ error: 'Meal not found' });
     } 
   } catch (error) {
-    throw error,
+
     res.status(500).json({ error: 'An error occurred while deleting the meal' });
   }
 });
-});
+
 module.exports = router;
