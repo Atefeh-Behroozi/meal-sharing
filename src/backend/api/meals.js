@@ -10,8 +10,46 @@ const validateRequestBody = (req, res, next) => {
 };
 router.get('/', async (req, res) => { 
   try {
+    const { maxPrice, availableReservations, title, dateAfter, dateBefore, limit, sortKey, sortDir } = req.query;
 
-    const meals = await knex('meals').select('*');
+    const query = knex('meals').select('*');
+
+    if (maxPrice) {
+      query.where('price', '<=', maxPrice);
+    }
+
+    if (availableReservations === 'true') {
+      query.where('max_reservations', '>', knex.raw('COALESCE((SELECT SUM(quantity) FROM reservations WHERE reservations.meal_id = meals.id), 0)'));
+    } else if (availableReservations === 'false') {
+      query.where('max_reservations', '<=', knex.raw('COALESCE((SELECT SUM(quantity) FROM reservations WHERE reservations.meal_id = meals.id), 0)'));
+    }
+
+    if (title) {
+      query.where('title', 'ilike', `%${title}%`);
+    }
+
+    if (dateAfter) {
+      query.where('when', '>', dateAfter);
+    }
+
+    if (dateBefore) {
+      query.where('when', '<', dateBefore);
+    }
+
+    if (sortKey) {
+      const validSortKeys = ['when', 'max_reservations', 'price'];
+      if (validSortKeys.includes(sortKey)) {
+        const order = sortDir === 'desc' ? 'desc' : 'asc';
+        query.orderBy(sortKey, order);
+      }
+    }
+
+    if (limit) {
+      query.limit(limit);
+    }
+
+    const meals = await query;
+
     res.json(meals);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while retrieving meals' });
