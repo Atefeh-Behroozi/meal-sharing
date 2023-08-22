@@ -11,8 +11,8 @@ const validateRequestBody = (req, res, next) => {
 };
 router.get('/', async (req, res) => {
   try {
-    const reservations = await knex('reservations').select('*');
-    res.json(reservations);
+    const reservation = await knex('reservation').select('*');
+    res.json(reservation);
   } catch (error) {
     res.status(500).json({ error: 'Error' });
   }
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', validateRequestBody, async (req, res) => {
   try {
-    const reservation = await knex('reservations').insert(req.body);
+    const reservation = await knex('reservation').insert(req.body);
     res.status(201).json(reservation);
   } catch (error) {
     res.status(500).json({ error: 'Error' });
@@ -29,7 +29,7 @@ router.post('/', validateRequestBody, async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-      const reservation = await knex('reservations').select('*').where({ id: req.params.id }).first();
+      const reservation = await knex('reservation').select('*').where({ id: req.params.id }).first();
       if (reservation) {
         res.json(reservation);
       } else {
@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
   
   router.put('/:id', validateRequestBody, async (req, res) => {
     try {
-      const reservation = await knex('reservations').where({ id: req.params.id }).update(req.body);
+      const reservation = await knex('reservation').where({ id: req.params.id }).update(req.body);
       if (reservation) {
         res.json({ message: 'Reservation updated' });
       } else {
@@ -55,7 +55,7 @@ router.get('/:id', async (req, res) => {
   
   router.delete('/:id', async (req, res) => {
     try {
-      const reservation = await knex('reservations').where({ id: req.params.id }).del();
+      const reservation = await knex('reservation').where({ id: req.params.id }).del();
       if (reservation) {
         res.json({ message: 'Reservation deleted' });
       } else {

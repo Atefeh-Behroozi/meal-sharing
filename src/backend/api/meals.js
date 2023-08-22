@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   try {
     const { maxPrice, availableReservations, title, dateAfter, dateBefore, limit, sortKey, sortDir } = req.query;
 
-    const query = knex('meals').select('*');
+    const query = knex('meal').select('*');
 
     if (maxPrice) {
       query.where('price', '<=', maxPrice);
@@ -59,17 +59,17 @@ router.get('/', async (req, res) => {
 // POST a new meal
 router.post('/', validateRequestBody, async (req, res) => {
   try {
-    const meal = await knex('meals').insert(req.body);
+    const meal = await knex('meal').insert(req.body);
     res.status(201).json(meal);
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while creating a meal' });
+    res.status(500).json({ error: error.message });
   }
 });
 
 // GET a meal by id
 router.get('/:id', async (req, res) => {
   try {
-    const meal = await knex('meals').select('*').where({ id: req.params.id }).first();
+    const meal = await knex('meal').select('*').where({ id: req.params.id }).first();
     if (meal) {
       res.json(meal);
     } else {
@@ -83,7 +83,7 @@ router.get('/:id', async (req, res) => {
 // PUT update a meal by id
 router.put('/:id', validateRequestBody, async (req, res) => {
   try {
-    const meal = await knex('meals').where({ id: req.params.id }).update(req.body);
+    const meal = await knex('meal').where({ id: req.params.id }).update(req.body);
     if (meal) {
       res.json({ message: 'Meal updated' });
     } else {
@@ -97,7 +97,7 @@ router.put('/:id', validateRequestBody, async (req, res) => {
 // DELETE a meal by id
 router.delete('/:id', async (req, res) => {
   try {
-    const meal = await knex('meals').where({ id: req.params.id }).del();
+    const meal = await knex('meal').where({ id: req.params.id }).del();
     if (meal) {
       res.json({ message: 'Meal deleted' });
     } else {

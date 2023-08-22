@@ -1,0 +1,35 @@
+h1{
+    color: blue;
+    font-family: -apple-system ;
+    font-size: 44px;
+    text-align: center;
+    margin-left: 150px;
+}
+
+.meals-list {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
+
+
+  }
+
+  .meal {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 2rem;
+   justify-content: center;
+   padding: 3rem;
+  }
+  
+  .meal-grid {
+   list-style-type:disc;
+   margin-block-start: 2em;
+   margin-block-end:2em;
+   margin-inline-start: 0px;
+   margin-inline-end: 0px;
+    padding-inline-start: 40px;
+  }
+  
