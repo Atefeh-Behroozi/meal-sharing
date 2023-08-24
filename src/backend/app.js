@@ -21,9 +21,9 @@ app.use(express.json());
 
 app.use(cors());
 
-router.use("/meals", mealsRouter);
-router.use('/api/reservations', reservationsRouter);
-router.use("/api/reviews", reviewRouter);
+router.use('/meals', mealsRouter);
+router.use('/reservation', reservationsRouter);
+router.use('/reviews', reviewRouter);
 
  app.get('/future-meals', async (req, res) => {
    try {

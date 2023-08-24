@@ -23,6 +23,16 @@ router.get('/meals/:meal_id', async (req, res) => {
   }
 });
 
+router.get('/:meal_id/meal-review', async (req, res) => {
+  const { meal_id } = req.params;
+  try {
+    const reviews = await knex('review').select('*').where({ meal_id });
+    res.json(reviews);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
 // POST a new review
 router.post('/', async (req, res) => {
   const { meal_id, title, description } = req.body;

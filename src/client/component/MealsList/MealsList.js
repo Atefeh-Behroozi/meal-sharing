@@ -3,24 +3,38 @@ import Meal from '../Meal/Meal';
 import './MealsList.css';
 
 const MealsList = () => {
+  const API = "/api/meals";
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    fetch('http://localhost:3000/api/meals') 
-      .then(response => response.json())
-      .then(data => setMeals(data))
-      .catch(error => console.error('Error fetching meals:', error.message));
+  const fetchMeals = async (url) => {
+    try {
+        const data = await fetch(url);
+        const result = await data.json();
+        setMeals(result);
+        setIsLoading(false);
+    } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
+  };
+useEffect(() => {
+    fetchMeals(API);
   }, []);
 
-  return (
+return (
     <div className="meals-list">
-      <h1>Meal Sharing</h1>
+        {isLoading ? (
+        <p>Loading...</p>
+      ) : (
       <div className="meal-grid">
         {meals.map(meal => (
           <Meal key={meal.id} meal={meal} />
         ))}
       </div>
+       )}
     </div>
+    
   );
 };
 

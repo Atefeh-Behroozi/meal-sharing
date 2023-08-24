@@ -1,19 +1,17 @@
 import React from 'react';
 import './Meal.css'; 
-import StarRating from './StarRating';
 
-const Meal = ({ meal }) => {
+const Meal = ({ title, description, price, reviews }) => {
   return (
     
     <div className="meal-card">
-      <h3 className="meal-title">{meal.title}</h3>
+      <h3 className="meal-title">{title}</h3>
       <div className="meal-review">
-        <StarRating rating={meal.stars} />
-        <span>({meal.reviews} Reviews)</span>
+        <span>({reviews} Reviews)</span>
       </div>
-      <p className="meal-description"> {meal.description}</p>
-      <p className="text-body"> Location: {meal.location}</p>
-      <p className="meal-price"> {meal.price} €</p>
+      <p className="meal-description"> {description}</p>
+      
+      <p className="meal-price"> {price} €</p>
      
       
     </div>
