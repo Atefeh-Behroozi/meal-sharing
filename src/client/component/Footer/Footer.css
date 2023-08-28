@@ -1,0 +1,22 @@
+.footer-container {
+  font-size: 13px;
+  line-height: 15px;
+  color:rgb(223, 158, 88);
+  font-weight: 600;
+  display: flex;
+  border-top: 1.5px solid #d1bcbc;
+
+}
+
+p{
+
+  font-size: 13px;
+  padding-top: 20px;
+}
+
+
+@media screen and (max-width: 850px) {
+  .footer-container {
+    font-size: 14px; 
+  }
+}

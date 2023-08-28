@@ -8,6 +8,6 @@ export default function TestComponent() {
   return (
     <section className="test-component">
       <p>in a component</p>
-    </section>
-  );
+   </section>
+);
 }

@@ -1,0 +1,58 @@
+.meal-card {
+  display: flex;
+  border: 1px  black ;
+  border-radius: 10px;
+  background: #b9ceba;
+  box-shadow: 20px 20px 40px #cfdcd0;
+  padding: 15px;
+  margin: 25px;
+  
+  
+}
+
+
+.meal-image {
+  width: 100%; 
+  max-width: 300px; 
+  height: auto; 
+  margin: 1px;
+}
+
+
+
+
+.meal-card:hover {
+  transform: scale(1.05);
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.h4 {
+  font-style: italic;
+  font-weight: 3000;
+  margin-bottom: 5px;
+  
+}
+
+.meal-title:hover {
+  transform: scale(1.05);
+}
+
+.meal-description {
+  font-size: 19px;
+  color: #666;
+  font-size: 10px;
+  display: contents;
+}
+
+.meal-price {
+  font-size: 15px;
+  font-weight: bold;
+  color: #821010;
+  align-items: center;
+}

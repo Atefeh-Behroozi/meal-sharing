@@ -1,0 +1,60 @@
+.form-review-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form-review {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 10px;
+    padding-top: 3em;
+    padding-left: 2em;
+    padding-right: 2.8em;
+    padding-bottom: 1.1em;
+    border: 2px #239269;
+    border-radius: 15px;
+    background-color: #bccfc2;
+    
+}
+
+.form-review .input {
+    outline: none;
+    padding: 0.5em;
+    border: 1px solid #507f60;
+    color: #3e7c5f;
+    width: 14em;
+    height: 3em;
+    border-radius: 10px;
+    background-color: #82b3a1;
+    text-align: center;
+}
+
+.form-review .textarea {
+    background-color: #768a7b;
+}
+
+.add-review {
+    margin: 1rem;
+    background: #7b817e;
+    color: black;
+    font-family: inherit;
+    padding: 0.5em 1.2em;
+    font-weight: 900;
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 0.4em;
+    box-shadow: 0.1em 0.1em;
+}
+
+.add-review:hover {
+   
+    box-shadow: 0.15em 0.15em;
+}
+
+.add-review:active {
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
+}
