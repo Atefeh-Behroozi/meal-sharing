@@ -1,17 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+ 
+}
+
 .meals-list {
     text-align: center;
-    margin-top: 80px;
-    margin-bottom: 100px;
-
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: grid;
+    justify-content: center;
   }
   
   .meal-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    flex-wrap: wrap;
-    
+    display: flex;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    flex-wrap: wrap;  
+    justify-content: center;
+    margin: 1rem 0;
+    font-weight: bold;
+    font-style: italic;
+    padding: 15px;
+    align-items: center;
   }
+
+
  
   
   

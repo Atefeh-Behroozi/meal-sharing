@@ -12,13 +12,13 @@ const Header = () => {
           </div>
         </a>
             <div>
-                <Link to="/">Home</Link>
+                <Link to="/" style={{ color: '#226a49'}}>Home</Link>
             </div>
             <div>
-                <Link to="/meals">Meals</Link>
+                <Link to="/meals" style={{ color: '#226a49'}}>Meals</Link>
             </div>
-            <div>
-                <Link to="/meals">Review</Link>
+            <div className='review'>
+                <Link to={`/meals/:id/reviews`} style={{ color: '#226a49'}}><h4>Review</h4></Link>
             </div>
         </nav>
     </div>

@@ -6,12 +6,12 @@ const Review = () => {
     const { id } = useParams();
 
     const [meal, setMeal] = useState("");
-    const [review, setReview] = useState([]);
+    const [reviews, setReview] = useState([]);
     const [error, setError] = useState(null);
 
     const getReview = async (id) => { 
         try {
-            const API = `/api/review/${id}/meal-review`;
+            const API = `/api/reviews/${id}/meal-reviews`;
             const data = await fetch(API);
             const result = await data.json();
             setMeal(result.meal);
@@ -31,9 +31,9 @@ const Review = () => {
             { error ?
             <div className="error">{error}</div>
             : <div className="content"> <h3> {meal} </h3>
-            {review ? 
-            review.length > 0 && 
-            review.map(review => 
+            {reviews ? 
+            reviews.length > 0 && 
+            reviews.map(review => 
                 <div key={review.posted} className="review-card">
                     <div className="review-title">{review.title}</div>
                     <div>{review.description}</div>

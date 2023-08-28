@@ -2,12 +2,13 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./component/HomePage/HomePage";
 import MealsList from "./component/MealsList/MealsList"; 
-import Meal from "./component/Meal/Meal"; 
 import Footer from "./component/Footer/Footer";
 import Header from "./component/Header/Header";
 import Review from "./component/Review/Review";
 import ReviewForm from "./component/ReviewForm/ReviewForm";
-import Reservation from "./component/Reservation/Reservation";
+import MealInformation from "./component/MealInformation/MealInformation";
+import Meal from "./component/Meal/Meal";
+
 
 function App() {
   return (
@@ -19,27 +20,29 @@ function App() {
         <HomePage />
         </Route>
 
-
         <Route exact path="/meals" >
           <MealsList/>
         </Route>
-        <Route exact path="/meals/:id" >
+
+        <Route exact path="/:id" >
           <Meal/>
         </Route>
 
-        <Route exact path="/meals/:id/review">
+        <Route exact path="/meals/:id" >
+          <MealInformation />
+        </Route>
+
+        
+
+        <Route exact path="/meals/:id/reviews/add-reviews">
           <Review />
         </Route>
 
-        <Route exact path="/meals/:id/reviews/add-review">
+        <Route exact path="/meals/:id/reviews">
           <ReviewForm />
         </Route>
 
-        <Route exact path="/meals/:id/reservation">
-          <Reservation />
-        </Route>
-        
-      </Switch>
+        </Switch>
       
      <Footer />
     </Router>

@@ -4,9 +4,9 @@ import './Footer.css';
 function Footer() {
   return (
     <div className='footer-container'>
-      <p>© 
-      2023
-      Atefeh Behroozi</p>
+      <p>
+        ©2023. Atefeh Behroozi
+      </p>
       </div>
   )
 }

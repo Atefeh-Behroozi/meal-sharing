@@ -1,0 +1,23 @@
+.meal-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 90px;
+    width: 100px;
+}
+
+.meal-description{
+    height:100px;
+    width:100px;
+}
+
+.review-meal:hover {
+    transform: translate(-0.05em, -0.05em);
+    box-shadow: 0.15em 0.15em;
+}
+
+.review-meal:active {
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
+}

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const knex = require('../database');
-const valid = require('./controller');
 
 const validateRequestBody = (req, res, next) => {
   const { title } = req.body;
@@ -87,7 +86,7 @@ router.post('/', validateRequestBody, async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const meal = await knex('meal').select('*').where({ id: req.params.id }).first();
+    const meal = await knex('meal').select('*').where({ id: req.params.id });
     if (meal) {
       res.json(meal);
     } else {

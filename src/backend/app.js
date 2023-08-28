@@ -77,7 +77,23 @@ router.use('/reviews', reviewRouter);
      res.status(500).json({ error: 'An error occurred.'});
     }
  });
- module.exports = router;
+
+ app.get('/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const meal = await knex('meal').select('*').where({ id }).first();
+    if (meal) {
+      res.json(meal);
+    } else {
+      res.status(404).json({ error: 'Meal not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+
+
 
 if (process.env.API_PATH) {
   app.use(process.env.API_PATH, router);

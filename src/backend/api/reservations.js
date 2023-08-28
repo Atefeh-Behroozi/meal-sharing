@@ -11,7 +11,7 @@ const validateRequestBody = (req, res, next) => {
     return res.status(400).json({ error: 'Incomplete reservation data' });
   }
 
-  if (isNaN(number_of_guests) || isNaN(meal_id)) {
+  if (isNaN(req.body.number_of_guests) || isNaN(req.body.meal_id)) {
     return res.status(400).json({ error: 'Invalid type. Expected Number' });
   }
 
@@ -29,8 +29,9 @@ router.get('/', async (req, res) => {
 
 router.post('/', validateRequestBody, async (req, res) => {
   try {
-    const reservation = await knex('reservation').insert(req.body);
+    await knex('reservation').insert(req.body);
     res.status(201).json({ message: 'Reservation successful' });
+    console.log(res);
   } catch (error) {
     res.status(500).json({ error: 'Error' });
   }
@@ -51,28 +52,33 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', validateRequestBody, async (req, res) => {
   try {
-    const reservation = await knex('reservation').where({ id: req.params.id }).update(req.body);
-    if (reservation) {
-      res.json({ message: 'Reservation updated' });
-    } else {
-      res.status(404).json({ error: 'Reservation not found' });
+    const updatedReservation = await knex('reservation')
+      .where({ id: req.params.id })
+      .update(req.body);
+      if (updatedReservation) {
+        res.json({ message: 'Reservation updated successfully' });
+      } else {
+        res.status(404).json({ error: 'Reservation not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred while updating the reservation' });
     }
-  } catch (error) {
-    res.status(500).json({ error: 'Error' });
-  }
-});
-
-router.delete('/:id', async (req, res) => {
-  try {
-    const reservation = await knex('reservation').where({ id: req.params.id }).del();
-    if (reservation) {
-      res.json({ message: 'Reservation deleted' });
-    } else {
-      res.status(404).json({ error: 'Reservation not found' });
+  });
+    
+  router.delete('/:id', async (req, res) => {
+    try {
+      const deletedReservation = await knex('reservation')
+        .where({ id: req.params.id })
+        .del();
+  
+      if (deletedReservation) {
+        res.json({ message: 'Reservation deleted successfully' });
+      } else {
+        res.status(404).json({ error: 'Reservation not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred while deleting the reservation' });
     }
-  } catch (error) {
-    res.status(500).json({ error: 'Error' });
-  }
-});
+  });
 
 module.exports = router;

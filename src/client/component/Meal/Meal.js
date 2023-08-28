@@ -1,21 +1,25 @@
 import React from 'react';
+import StarRating from './StarRating';
 import './Meal.css'; 
 
-const Meal = ({ title, description, price, reviews }) => {
+const Meal = ({ title, description, price, image_url, rating }) => {
+  
+
   return (
     
     <div className="meal-card">
-      <h3 className="meal-title">{title}</h3>
-      <div className="meal-review">
-        <span>({reviews} Reviews)</span>
+       <div className="info">
+      
+        <h4>{title}</h4>
+      
+      <div className="meal-image"><img src={image_url} alt={title} className="meal-image" /></div>
+      <div className="meal-description"> {description}</div>
+      <StarRating rating={rating} /> 
+      <div className="meal-price"> {price} €</div>
+  
       </div>
-      <p className="meal-description"> {description}</p>
-      
-      <p className="meal-price"> {price} €</p>
      
-      
-    </div>
+     </div>
   );
 };
-
 export default Meal;
